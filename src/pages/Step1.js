@@ -4,16 +4,31 @@ import { useForm } from 'react-hook-form';
 import Form from '../components/Form';
 import PrimaryButton from '../components/PrimaryButton';
 import { TextField } from '@mui/material';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+
+const schema = yup.object().shape({
+  firstName: yup
+    .string()
+    .matches(/^([^0-9]*)$/, 'First name should not contain numbers')
+    .required('First name is a required field'),
+  lastName: yup
+    .string()
+    .matches(/^([^0-9]*)$/, 'Last name should not contain numbers')
+    .required('Last name is a required field'),
+});
 
 function Step1() {
+  const navigator = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
 
   const onSubmit = data => {
-    console.log(data);
+    navigator('step2');
   };
   return (
     <>
@@ -23,33 +38,23 @@ function Step1() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           {...register('firstName')}
+          error={!!errors.firstName}
+          helperText={errors?.firstName?.message}
           label='First Name'
-          type='text'
           variant='outlined'
           margin='normal'
           fullWidth
         />
         <TextField
           {...register('lastName')}
+          error={!!errors.lastName}
+          helperText={errors?.lastName?.message}
           label='Last Name'
-          type='text'
           variant='outlined'
           margin='normal'
           fullWidth
         />
 
-        {/* <Input
-          {...register('firstName')}
-          id='firstName'
-          type='text'
-          label='First Name'
-        />
-        <Input
-          {...register('lastName')}
-          id='lastName'
-          type='text'
-          label='Last Name'
-        /> */}
         <PrimaryButton>Next</PrimaryButton>
       </Form>
     </>
