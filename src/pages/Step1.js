@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
 import React from 'react';
+import { Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Form from '../components/Form';
 import PrimaryButton from '../components/PrimaryButton';
@@ -41,7 +41,6 @@ function Step1() {
           error={!!errors.firstName}
           helperText={errors?.firstName?.message}
           label='First Name'
-          variant='outlined'
           margin='normal'
           fullWidth
         />
@@ -50,7 +49,6 @@ function Step1() {
           error={!!errors.lastName}
           helperText={errors?.lastName?.message}
           label='Last Name'
-          variant='outlined'
           margin='normal'
           fullWidth
         />
