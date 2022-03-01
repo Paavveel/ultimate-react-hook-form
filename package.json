@@ -1,6 +1,7 @@
 {
   "name": "ultimate-react-hook-form",
   "version": "0.1.0",
+  "homepage": "https://Paavveel.github.io/ultimate-react-hook-form",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.1",
