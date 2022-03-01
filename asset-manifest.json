@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/ultimateform/static/css/main.22aab955.css",
-    "main.js": "/ultimateform/static/js/main.6a084d18.js",
-    "index.html": "/ultimateform/index.html",
-    "main.22aab955.css.map": "/ultimateform/static/css/main.22aab955.css.map",
-    "main.6a084d18.js.map": "/ultimateform/static/js/main.6a084d18.js.map"
+    "main.css": "/ultimate-react-hook-form/static/css/main.22aab955.css",
+    "main.js": "/ultimate-react-hook-form/static/js/main.c11b688e.js",
+    "index.html": "/ultimate-react-hook-form/index.html",
+    "main.22aab955.css.map": "/ultimate-react-hook-form/static/css/main.22aab955.css.map",
+    "main.c11b688e.js.map": "/ultimate-react-hook-form/static/js/main.c11b688e.js.map"
   },
   "entrypoints": [
     "static/css/main.22aab955.css",
-    "static/js/main.6a084d18.js"
+    "static/js/main.c11b688e.js"
   ]
 }
