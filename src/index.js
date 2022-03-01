@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename='ultimate-react-hook-form'>
+    <BrowserRouter basename='ultimateform'>
       <Provider store={store}>
         <App />
       </Provider>
