@@ -7,6 +7,9 @@ import { TextField } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { setValues } from '../store/formSlice';
+import { useDispatch } from 'react-redux';
 
 const schema = yup.object().shape({
   firstName: yup
@@ -20,16 +23,24 @@ const schema = yup.object().shape({
 });
 
 function Step1() {
+  const { data } = useSelector(state => state.form);
+  const dispatch = useDispatch();
   const navigator = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
+  } = useForm({
+    defaultValues: { firstName: data.firstName, lastName: data.lastName },
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = data => {
+    dispatch(setValues(data));
     navigator('step2');
   };
+
   return (
     <>
       <Typography component='h2' variant='h5'>

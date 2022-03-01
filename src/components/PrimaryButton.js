@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React from 'react';
 
-function PrimaryButton({ children, props }) {
+function PrimaryButton({ children, ...props }) {
   return (
     <Button
       type='submit'

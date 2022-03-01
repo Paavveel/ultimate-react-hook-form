@@ -13,12 +13,22 @@ import PrimaryButton from '../components/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import { CloudUpload, InsertDriveFile } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setValues } from '../store/formSlice';
 
 function Step3() {
+  const { data } = useSelector(state => state.form);
+  const dispatch = useDispatch();
   const navigator = useNavigate();
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      files: data.files,
+    },
+  });
 
   const onSubmit = data => {
+    dispatch(setValues(data));
     navigator('../result');
   };
 

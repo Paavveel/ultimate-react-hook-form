@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, FormControlLabel, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import Form from '../components/Form';
 import PrimaryButton from '../components/PrimaryButton';
 import { TextField } from '@mui/material';
@@ -8,6 +8,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setValues } from '../store/formSlice';
 
 const schema = yup.object().shape({
   email: yup
@@ -28,17 +31,29 @@ const normalizePhoneNumber = value => {
 };
 
 function Step2() {
+  const { data } = useSelector(state => state.form);
+  const dispatch = useDispatch();
   const navigator = useNavigate();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
+  } = useForm({
+    defaultValues: {
+      email: data.email,
+      hasPhone: data.hasPhone,
+      phoneNumber: data.phoneNumber,
+    },
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
 
   const hasPhone = watch('hasPhone');
 
   const onSubmit = data => {
+    dispatch(setValues(data));
     navigator('../step3');
   };
 
@@ -59,8 +74,20 @@ function Step2() {
           required
         />
         <FormControlLabel
-          control={<Checkbox {...register('hasPhone')} color='primary' />}
           label='Do you have a phone'
+          control={
+            <Controller
+              control={control}
+              name='hasPhone'
+              render={({ field: { onChange, value } }) => (
+                <Checkbox
+                  onChange={onChange} // send value to hook form
+                  checked={value}
+                  color='primary'
+                />
+              )}
+            />
+          }
         />
 
         {hasPhone && (
@@ -72,7 +99,6 @@ function Step2() {
             type='tel'
             margin='normal'
             fullWidth
-            defaultValue='+7'
             onChange={e =>
               (e.target.value = normalizePhoneNumber(e.target.value))
             }
